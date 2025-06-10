@@ -1,7 +1,7 @@
-import { User } from "../models/users.models";
+import { User } from "../models/users.models.js";
 import { Webhook } from "svix";
-import asyncHandler from "./asyncHandler";
-import { CLERK_WEBHOOKS_SECRET } from "../config/env.config";
+import asyncHandler from "./asyncHandler.js";
+import { CLERK_WEBHOOKS_SECRET } from "../config/env.config.js";
 
 const clerkWebHooks = asyncHandler(async (req, res) => {
   const whook = new Webhook(CLERK_WEBHOOKS_SECRET);

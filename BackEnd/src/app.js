@@ -17,6 +17,9 @@ app.use(clerkMiddleware());
 
 //**Api to listen to clerk webhooks */
 app.use("/api/clerk", clerkWebHooks);
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Api is working..." });
+});
 
 app.use(errorHandlerMiddlewares);
 
