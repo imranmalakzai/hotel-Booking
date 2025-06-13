@@ -1,9 +1,10 @@
+// src/app.js
 import express from "express";
-import { clerkMiddleware } from "@clerk/express";
 import cookieParser from "cookie-parser";
-import { ALLOWED_CORS_ORIGIN } from "./config/env.config.js";
 import cors from "cors";
-import errorHandlerMiddlewares from "./middlewares/ErrorHandler.middlewares.js";
+import { ALLOWED_CORS_ORIGIN } from "./config/env.config.js";
+import { clerkMiddleware } from "@clerk/express";
+import errorHandler from "./middlewares/ErrorHandler.middlewares.js";
 import clerkWebHooks from "./utils/clerkWebHooks.js";
 
 const app = express();
@@ -13,14 +14,18 @@ app.use(cookieParser());
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: false }));
 
+// Clerk Middleware
 app.use(clerkMiddleware());
 
-//**Api to listen to clerk webhooks */
+// Clerk Webhook Listener
 app.use("/api/clerk", clerkWebHooks);
+
+// Health Check
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "Api is working..." });
+  res.status(200).json({ message: "✅ API is live and running." });
 });
 
-app.use(errorHandlerMiddlewares);
+// Global Error Handler
+app.use(errorHandler);
 
 export default app;
