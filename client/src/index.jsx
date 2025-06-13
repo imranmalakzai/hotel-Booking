@@ -6,7 +6,7 @@ import ContextProvider from "./Context/AppContext.jsx";
 import { ClerkProvider } from '@clerk/clerk-react';
 import { BrowserRouter } from "react-router-dom";
 import ErrorBoundary from "./Components/ErrorBoundary.jsx";
-import HeroSection from "./Heroo.jsx";
+
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
@@ -20,7 +20,7 @@ router.render(
     <BrowserRouter>
       <ErrorBoundary>
         <ContextProvider>
-          <HeroSection />
+          <App />
           <Toaster />
         </ContextProvider>
       </ErrorBoundary>

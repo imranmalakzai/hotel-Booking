@@ -14,7 +14,7 @@ const clerkWebHooks = asyncHandler(async (req, res) => {
 
   // Verify and parse event
   const { type, data } = await whook.verify(JSON.stringify(req.body), headers);
-
+  console.log(type, data);
   // user data
   const userData = {
     _id: data.id,
