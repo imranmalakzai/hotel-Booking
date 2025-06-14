@@ -1,6 +1,6 @@
 import { User } from "../models/users.models.js";
 import { Webhook } from "svix";
-import asyncHandler from "./asyncHandler.js";
+import asyncHandler from "../utils/asyncHandler.js";
 import { CLERK_WEBHOOKS_SECRET } from "../config/env.config.js";
 
 const clerkWebHooks = asyncHandler(async (req, res) => {
@@ -13,9 +13,10 @@ const clerkWebHooks = asyncHandler(async (req, res) => {
   };
 
   // Verify and parse event
-  const { type, data } = await whook.verify(JSON.stringify(req.body), headers);
-  console.log(type, data);
-  // user data
+  await whook.verify(JSON.stringify(req.body), headers);
+
+  const { data, type } = req.body;
+
   const userData = {
     _id: data.id,
     email: data.email_addresses[0].email_address,

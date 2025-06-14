@@ -5,7 +5,7 @@ import cors from "cors";
 import { ALLOWED_CORS_ORIGIN } from "./config/env.config.js";
 import { clerkMiddleware } from "@clerk/express";
 import errorHandler from "./middlewares/ErrorHandler.middlewares.js";
-import clerkWebHooks from "./utils/clerkWebHooks.js";
+import clerkWebHooks from "./controllers/clerkWebhook.controller.js";
 
 const app = express();
 
@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(clerkMiddleware());
 
 // Clerk Webhook Listener
+
 app.use("/api/clerk", clerkWebHooks);
 
 // Health Check
